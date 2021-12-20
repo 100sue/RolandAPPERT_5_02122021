@@ -16,10 +16,18 @@ function addproducts(donnees) {
     const id = donnees[0]._id
     const imageUrl = donnees[0].imageUrl
     const altTxt = donnees[0].altTxt
-    const image = makeImage (imageUrl,altTxt)
+    const name = donnees[0].name
+    const description = donnees[0].description
+
+    const image = makeImage(imageUrl,altTxt)
     const anchor = makeAnchor(id)
     const article = makeArticle()
+    const h3 = makeH3(name)
+    const p = makeParagraph(description)
+
     article.appendChild(image)
+    article.appendChild(h3)
+    article.appendChild(p)
     appendChildren(anchor, article)
 }
 
@@ -28,11 +36,13 @@ function makeAnchor(id) {
     anchor.href = "./product.html?id=" + id
     return anchor 
 }
+
 function appendChildren(anchor, article) {
     const items = document.querySelector("#items")
     items.appendChild(anchor)
     anchor.appendChild(article)  
  }
+ 
  function makeImage(imageUrl, altTxt) {
      const image = document.createElement("img")
      image.src = imageUrl
@@ -44,6 +54,16 @@ function appendChildren(anchor, article) {
      const article = document.createElement("article")
      return article
  }
- 
+
+ function makeH3 (name) {
+     const h3 = document.createElement("h3")
+     h3.textcontent = name
+     h3.classList.add("productName")
+     return h3
+ }
+ function makeParagraph (description) {
+
+
+ }
 
 //console.log(article)
