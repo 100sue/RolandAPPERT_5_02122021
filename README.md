@@ -11,7 +11,7 @@ L'objectif principal consiste en la création, du front-end d'un site d'e-commer
 - Gérer des événements JavaScript
 - Valider des données issues de sources externes
 - Créer un plan de test pour une application
-
+</br>
 
 # Kanap #
 
@@ -56,7 +56,7 @@ Prérequis :
 - Node.js (version )
 - NPM (version )
 
- 
+ </br>
 This is the front end and back end server for Project 5 of the Web Developer path.
 
 ### Back end Prerequisites ###
