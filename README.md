@@ -42,7 +42,7 @@ Expérience utilisateur :
 
 
 
-### TesteZ l'application web (testeZ le site en ligne) : ###
+# Tester l'application web (tester le site en ligne) : #
 
 - Pour tester simplement l'application web, 
 Rendez-vous sur :  https://100sue.github.io/RolandAPPERT_5_02122021/
@@ -57,7 +57,6 @@ Prérequis :
 - NPM (version )
 
  
-
 This is the front end and back end server for Project 5 of the Web Developer path.
 
 ### Back end Prerequisites ###
