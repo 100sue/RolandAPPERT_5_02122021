@@ -39,12 +39,12 @@ Expérience utilisateur :
 
 -  Les inputs du formulaire devront être validés avant l'envoi à l'API.
 
+</br>
+</br>
 
+## Tester l'application web en ligne : ##
 
-
-## Tester l'application web (tester le site en ligne) : ##
-
-- Pour tester simplement l'application web, 
+### Pour tester simplement l'application web : ### 
 Rendez-vous sur :  https://100sue.github.io/RolandAPPERT_5_02122021/
 
 
