@@ -6,10 +6,11 @@ L'objectif principal consiste en la création, du front-end d'un site d'e-commer
 
 
 Compétences évaluées :
-Interagir avec un web service avec JavaScript
-Gérer des événements JavaScript
-Valider des données issues de sources externes
-Créer un plan de test pour une application
+
+- Interagir avec un web service avec JavaScript
+- Gérer des événements JavaScript
+- Valider des données issues de sources externes
+- Créer un plan de test pour une application
 
 
 # Kanap #
@@ -18,47 +19,41 @@ Cahier des charges :
 
 TODO-list :
 
-    Vérifier que les inputs sont corrects avant l'envoi au back-end
-    Terminer plan de test
+- Vérifier que les inputs sont corrects avant l'envoi au back-end.
+- Teminer le plan de test fourni.
 
-Général
+Général :
 
-    Création d'une page présentant tous les produits
-    Création d'une page présentant les détails d'un produit et la possibilité de l'ajouter au panier.
-    Création d'une page panier contenant la liste des produits présents ainsi qu'un formulaire pour effectuer l'achat.
+- Création d'une page (c-à-d : intégrer ces éléments dynamiquement grâce à JS et l’API) présentant tous les produits.
+- Création d'une page présentant les détails  panier contenant la liste des produits présents ainsi qu'un formulaire pour effectuer l'achat.
+- Création d'une page-panier contenat la liste des produits présents ainsi qu'un formulaire pour effectuer l'achat.
 
-Qualité de code
+Qualité du code :
 
-    Le code devra être indenté
-    Le code devra contenir des commentaires
-    Les promesses devront être utilisées lors des appels ajax
-    Le code devra être accompagné d'un document planifiant de futurs test unitaires
+- Le code dvra etre indenté.
+- Le code devra contenir des commentaires.
+- Les promesses devront être utiliséees lors des appels.
+- Le code devra être accompagné d'un document planifiant de futurs tests unitaires.
 
-Expérience utilisateur
+Expérience utilisateur :
 
-    Les inputs du formulaire d'achat devront être validés avant l'envoi à l'API.
-
-Tester l'application web
-Tester le site en ligne
+-  Les inputs du formulaire devront être validés avant l'envoi à l'API.
 
 
+TesteZ l'application web (testeZ le site en ligne) :
 
-Pour tester simplement l'application web, rendez-vous sur :
+- Pour tester simplement l'application web, rendez-vous sur :
+
+
+
 Tester le site en local
+
 Prérequis :
 
-    Node.js (version )
-    NPM (version utilisée durant le développement)
+- Node.js (version )
+- NPM (version )
 
-
-
-
-
-
-
-
-
-
+ 
 
 This is the front end and back end server for Project 5 of the Web Developer path.
 
