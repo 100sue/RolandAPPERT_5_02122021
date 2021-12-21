@@ -5,7 +5,7 @@ Cinquième projet du parcours développeur web chez OpenClassrooms.
 L'objectif principal consiste en la création, du front-end d'un site d'e-commerce, en Javascript par la consommation d'un API préalablement fourni .
 
 
-Compétences évaluées :
+### Compétences évaluées : ###
 
 - Interagir avec un web service avec JavaScript
 - Gérer des événements JavaScript
@@ -15,7 +15,7 @@ Compétences évaluées :
 
 # Kanap #
 
-Cahier des charges :
+### Cahier des charges : ###
 
 TODO-list :
 
@@ -42,7 +42,7 @@ Expérience utilisateur :
 
 
 
-# Tester l'application web (tester le site en ligne) : #
+## Tester l'application web (tester le site en ligne) : ##
 
 - Pour tester simplement l'application web, 
 Rendez-vous sur :  https://100sue.github.io/RolandAPPERT_5_02122021/
