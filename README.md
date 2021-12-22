@@ -1,8 +1,6 @@
+### Cinquième projet du parcours développeur web chez OpenClassrooms. ###
 
-
-Cinquième projet du parcours développeur web chez OpenClassrooms.
-
-L'objectif principal consiste en la création, du front-end d'un site d'e-commerce, en Javascript par la consommation d'un API préalablement fourni .
+L'objectif principal consiste en la création, du front-end d'un site d'e-commerce, en Javascript par l'utilisation d'un API préalablement fourni .
 
 
 ### Compétences évaluées : ###
@@ -11,6 +9,12 @@ L'objectif principal consiste en la création, du front-end d'un site d'e-commer
 - Gérer des événements JavaScript
 - Valider des données issues de sources externes
 - Créer un plan de test pour une application
+
+### Technologie utilisée : ###
+- Utilisation uniquement du code de JavaScript pur. 
+- L'utilisation de tout framework ou librairie JavaScript - React, Angular, Vue ou jQuery, par exemple - est interdite pour ce projet.
+
+
 </br>
 
 # Kanap #
@@ -30,7 +34,7 @@ Général :
 
 Qualité du code :
 
-- Le code dvra etre indenté.
+- Le code devra etre indenté.
 - Le code devra contenir des commentaires.
 - Les promesses devront être utiliséees lors des appels.
 - Le code devra être accompagné d'un document planifiant de futurs tests unitaires.
