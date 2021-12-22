@@ -8,7 +8,7 @@ fetch ("http://localhost:3000/api/products")
 //description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 //imageUrl: "http://localhost:3000/images/kanap01.jpeg"
 //name: "Kanap Sinopé"
-//price: 1849
+     //price: 1849 -Pas besoin !!!-
 //_id: "107fb5b75607497b96722bda5b504926"
 
 
@@ -61,9 +61,16 @@ function appendChildren(anchor, article) {
      h3.classList.add("productName")
      return h3
  }
+
  function makeParagraph (description) {
-
-
+     const p = document.createElement ("p")
+     p.textContent = description
+     p.classList.add ("productdescription")
+     return p
  }
+
+
+
+
 
 //console.log(article)
