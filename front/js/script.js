@@ -12,16 +12,16 @@ fetch ("http://localhost:3000/api/products")
 //_id: "107fb5b75607497b96722bda5b504926"
 
 
-function addproducts(donnees) {
-    const id = donnees[0]._id
-    const imageUrl = donnees[0].imageUrl
-    const altTxt = donnees[0].altTxt
-    const name = donnees[0].name
-    const description = donnees[0].description
+function addproducts(data) {
+    const _id = data[0]._id
+    const imageUrl = data[0].imageUrl
+    const altTxt = data[0].altTxt
+    const name = data[0].name
+    const description = data[0].description
 
+    const anchor = makeAnchor(_id)
     const image = makeImage(imageUrl,altTxt)
-    const anchor = makeAnchor(id)
-    const article = makeArticle()
+    const article = document.createElement("article")
     const h3 = makeH3(name)
     const p = makeParagraph(description)
 
@@ -48,11 +48,6 @@ function appendChildren(anchor, article) {
      image.src = imageUrl
      image.alt = altTxt
      return image
- }
-
- function makeArticle () {
-     const article = document.createElement("article")
-     return article
  }
 
  function makeH3 (name) {
