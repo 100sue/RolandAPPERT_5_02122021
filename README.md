@@ -49,7 +49,7 @@ Expérience utilisateur :
 ## Tester l'application web en ligne : ##
 
 ### Pour tester simplement l'application web : ### 
-Rendez-vous sur :  https://100sue.github.io/RolandAPPERT_5_02122021/
+Rendez-vous sur :  https://100sue.github.io/RolandAPPERT_5_02122021/front/html/index.html
 
 
 
