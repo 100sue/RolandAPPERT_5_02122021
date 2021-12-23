@@ -13,26 +13,27 @@ fetch ("http://localhost:3000/api/products")
 
 
 function addproducts(data) {
-    data.forEach((canapé) => {
-        
-        const _id = data[0]._id
-        const imageUrl = data[0].imageUrl
-        const altTxt = data[0].altTxt
-        const name = data[0].name
-        const description = data[0].description
-    
+
+    for (let i = 0; i < data.length; i++){
+
+        const _id = data[i]._id
+        const imageUrl = data[i].imageUrl
+        const altTxt = data[i].altTxt
+        const name = data[i].name
+        const description = data[i].description
+     
         const anchor = makeAnchor(_id)
         const image = makeImage(imageUrl,altTxt)
         const article = document.createElement("article")
         const h3 = makeH3(name)
         const p = makeParagraph(description)
-    
+     
         article.appendChild(image)
         article.appendChild(h3)
         article.appendChild(p)
         appendChildren(anchor, article)
-        
-    });
+    }
+       
 }
 
 function makeAnchor(id) {
@@ -70,11 +71,7 @@ function appendChildren(anchor, article) {
 
 
 
-// console.log("canapé :", canapé)
 
-// loop : for (let i = 0; i < data.length, i++){
 //    console.log("canapé numero", i, data[i])
-//}
-
 
 //console.log(article)
