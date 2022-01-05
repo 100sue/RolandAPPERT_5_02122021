@@ -1,6 +1,6 @@
 fetch ("http://localhost:3000/api/products")
 .then((reponse) => reponse.json())
-.then((data) => addproducts(data))
+.then((data) => addProducts(data))
 
 
 //altTxt: "Photo d'un canapé bleu, deux places"
@@ -12,7 +12,7 @@ fetch ("http://localhost:3000/api/products")
 //_id: "107fb5b75607497b96722bda5b504926"
 
 
-function addproducts(data) {
+function addProducts(data) {
 
     for (let i = 0; i < data.length; i++){
 
