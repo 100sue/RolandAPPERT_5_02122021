@@ -1,4 +1,8 @@
-// Récupération de l'url.
+// Mission : Afficher le produit cliqué (en page index), ainsi que ses infos.
+// Et sauvegarder le choix des inputs, de couleur et de prix, pour le panier(local storage)
+
+
+// Récupération de l'id produit dans l'url.
 // Et, vérification de l'url lié à l'identifiant.
 
 const queryString = window.location.search
@@ -9,12 +13,13 @@ if (id != null) {
     let imgUrl, altText
 }
 
-
-// Intégration des données de l'Api dans la page produit
+// Requête API sur ID produit.
 
 fetch ("http://localhost:3000/api/products/"+id)
 .then((response) => response.json())
 .then((res) => handleData(res))
+
+// Intégration des données de l'Api dans la page produit
 
 function handleData(canap) {
     const altTxt = canap.altTxt
@@ -23,6 +28,7 @@ function handleData(canap) {
     const imageUrl = canap.imageUrl
     const name = canap.name
     const price = canap.price
+    const _id = canap._id
     itemPrice = price
     imgUrl = imageUrl
     altText = altTxt
@@ -34,10 +40,10 @@ function handleData(canap) {
 }
 
 function makeImage(imageUrl, altTxt) {
-    const image = document.createElement("image")
+    const image = document.createElement("img")
     image.src = imageUrl
     image.alt = altTxt
-    const parent = document.querySelector(".items__img")
+    const parent = document.querySelector(".item__img")
     if (parent != null) parent.appendChild(image)
 }
 
@@ -73,11 +79,13 @@ function makeColors(colors) {
 const button = document.querySelector("#addToCart")
 button.addEventListener("click", handleClick) 
 
+// Récupération des options choisies pour la couleur et la quantité.
+// Et, enregistrement dans le local storage.
+
 function handleClick() {
     const color = document.querySelector("#colors").value
     const quantity = document.querySelector("#quantity").value
-
-    if (isOrderInvalid (color, quantity)) return
+    if (isOrderInvalid (color, quantity)) 
     saveOrder(color, quantity)
     redirectToCart()
 
@@ -95,12 +103,16 @@ function saveOrder (color, quantity) {
     localStorage.setItem(id, JSON.stringify(data))
 }
 
+// Message d'erreur si la couleur ou la quantité n'est pas mentionnée.
+
 function isOrderInvalid (color, quantity) {
     if (color == null || color === "" || quantity == null || quantity == 0) {
         alert("Please select color and quantity")
         return true
     }
 }
+
+// Redirection vers la page Cart (panier)
 
 function redirectToCart() {
     window.location.href = "cart.html"

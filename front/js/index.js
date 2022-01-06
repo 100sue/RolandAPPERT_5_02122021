@@ -1,16 +1,14 @@
+// Mission : Afficher tous les produits, avec les infos suivantes :
+// Image + Nom + Description
+
+
+// Requête Get sur l'API.
+
 fetch ("http://localhost:3000/api/products")
 .then((reponse) => reponse.json())
 .then((data) => addProducts(data))
 
-
-//altTxt: "Photo d'un canapé bleu, deux places"
-//colors: (3) ['Blue', 'White', 'Black']
-//description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-//imageUrl: "http://localhost:3000/images/kanap01.jpeg"
-//name: "Kanap Sinopé"
-     //price: 1849 -Pas besoin !!!-
-//_id: "107fb5b75607497b96722bda5b504926"
-
+// Ajout des huit objets reçus sur la page HTML.
 
 function addProducts(data) {
 
@@ -71,7 +69,3 @@ function appendChildren(anchor, article) {
 
 
 
-
-//    console.log("canapé numero", i, data[i])
-
-//console.log(article)
