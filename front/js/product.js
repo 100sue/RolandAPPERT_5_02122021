@@ -1,7 +1,6 @@
 // Mission : Afficher le produit cliqué (en page index), ainsi que ses infos.
 // Et sauvegarder le choix des inputs, de couleur et de prix, pour le panier(local storage)
 
-
 // Récupération de l'id produit dans l'url.
 // Et, vérification de l'url lié à l'identifiant.
 
@@ -62,6 +61,8 @@ function makeDescription(description) {
     if (p != null) p.textContent = description
 }
 
+// Création de option afin d'intégrer le choix des divers coloris proposés
+
 function makeColors(colors) {
     const select = document.querySelector("#colors")
     if (select != null) {
@@ -76,6 +77,9 @@ function makeColors(colors) {
 }
 
 
+
+// Enregistrement des données (couleur, quantité) par rapport au clic.
+
 const button = document.querySelector("#addToCart")
 button.addEventListener("click", handleClick) 
 
@@ -85,10 +89,9 @@ button.addEventListener("click", handleClick)
 function handleClick() {
     const color = document.querySelector("#colors").value
     const quantity = document.querySelector("#quantity").value
-    if (isOrderInvalid (color, quantity)) 
+    if (isOrderInvalid (color, quantity)) return
     saveOrder(color, quantity)
     redirectToCart()
-
 }
 
 function saveOrder (color, quantity) {
