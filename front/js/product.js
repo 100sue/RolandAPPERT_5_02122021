@@ -9,7 +9,7 @@ const urlParams = new URLSearchParams(queryString)
 const id = urlParams.get("id")
 if (id != null) {
     let itemPrice = 0
-    let imgUrl, altText
+    let imgUrl, altText, articleName
 }
 
 // Requête API sur ID produit.
@@ -31,6 +31,7 @@ function handleData(canap) {
     itemPrice = price
     imgUrl = imageUrl
     altText = altTxt
+    articleName = name
     makeImage(imageUrl, altTxt)
     makeTitle(name)
     makePrice(price)
@@ -94,21 +95,22 @@ function handleClick() {
     redirectToCart()
 }
 
-function saveOrder (color, quantity) {
+function saveOrder(color, quantity) {
     const data = {
         id: id,
         color: color,
         quantity: Number(quantity),
         price: itemPrice,
-        imgUrl: imageUrl,
-        altText: altTxt
+        imageUrl: imgUrl,
+        altTxt: altText,
+        name: articleName
     }
     localStorage.setItem(id, JSON.stringify(data))
 }
 
 // Message d'erreur si la couleur ou la quantité n'est pas mentionnée.
 
-function isOrderInvalid (color, quantity) {
+function isOrderInvalid(color, quantity) {
     if (color == null || color === "" || quantity == null || quantity == 0) {
         alert("Please select color and quantity")
         return true
