@@ -21,10 +21,21 @@ function displayItem(item) {
     const article = makeArticle(item)
     const imageDiv = makeImageDiv(item)
     article.appendChild(imageDiv)
-
     const cartItemContent = makeCartContent(item)
     article.appendChild(cartItemContent)
     displayArticle(article)
+    displayTotalPrice(item)
+}
+
+function displayTotalPrice(item) {
+    let total = 0
+    const totalPrice = document.querySelector("#totalPrice")
+    cart.forEach((item) => {
+        const totalUnitPrice = item.price * item.quantity
+        total += totalUnitPrice
+    })
+    totalPrice.textContent = total
+
 }
 
 // Mis en place de l'article
@@ -61,41 +72,44 @@ function makeCartContent(item) {
     cartItemContent.classList.add("cart__item__content")
     const description = makeDescription(item)
     const settings = makeSettings(item)
-
     cartItemContent.appendChild(description)
     cartItemContent.appendChild(settings)
     return cartItemContent
-  
-
 }
+
 function makeDescription(item) {
     const imageDiv = document.createElement("imageDiv")
     imageDiv.classList.add("cart__item__content")
-
     const description = document.createElement("description")
     description.classList.add("cart__item__content__description")
-
     const h2 = document.createElement("h2")
     h2.textContent = item.name
     const p = document.createElement("p")
     p.textContent = item.color
     const p2 = document.createElement("p2")
     p2.textContent = item.price + "€"
-
     description.appendChild(h2)
     description.appendChild(p)
     description.appendChild(p2)
     imageDiv.appendChild(description)
     return description
-
 }
 
 function makeSettings(item){
     const settings = document.createElement("div")
     settings.classList.add("cart__item__settings")
-    addQuantityToSettings (settings, item)
+    addQuantityToSettings(settings, item)
+    addDeleteToSettings(settings)
     return settings
+}
 
+function addDeleteToSettings(settings) {
+    const div = document.createElement("div")
+    div.classList.add("cart__item__content__settings__delete")
+    const p = document.createElement("p")
+    p.textContent = "Supprimer"
+    div.appendChild(p)
+    settings.appendChild(div)
 }
 
 function addQuantityToSettings (settings, item){
@@ -111,6 +125,6 @@ function addQuantityToSettings (settings, item){
     input.min = "1"
     input.max = "100"
     input.value = item.quantity
-    settings.appendChild(input)
-
+    quantity.appendChild(input)
+    settings.appendChild(quantity)
 }
