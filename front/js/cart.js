@@ -94,7 +94,7 @@ function makeSettings(item){
     const settings = document.createElement("div")
     settings.classList.add("cart__item__settings")
     addQuantityToSettings(settings, item)
-    addDeleteToSettings(settings)
+    addDeleteToSettings(settings, item)
     return settings
 }
 
@@ -123,9 +123,9 @@ function updateTotalPriceAndQuantity(id, newValue, item) {
     const itemToUpdate = cart.find((item) => item.id === id )
     itemToUpdate.quantity =  Number(newValue)
     item.quantity = itemToUpdate.quantity
-    displayTotalPrice ()
+    displayTotalPrice()
     displayTotalQuantity()
-    saveNewDatoToCache (item)
+    saveNewDatoToCache(item)
 }
 
 // Récuperation des nouvelles valeurs et remplacement, des anciennes, dans le localStorage.
@@ -138,13 +138,31 @@ function saveNewDatoToCache(item) {
 
 // Ajout de "supprimer".
 
-function addDeleteToSettings(settings) {
+function addDeleteToSettings(settings, item) {
     const div = document.createElement("div")
     div.classList.add("cart__item__content__settings__delete")
+    div.addEventListener("click", deleteItem)
     const p = document.createElement("p")
     p.textContent = "Supprimer"
     div.appendChild(p)
     settings.appendChild(div)
+}
+
+function deleteItem(item) {
+    const itemToDelete = cart.findIndex((product) => product.id === item.id && product.color === item.color)
+cart.splice(itemToDelete, 1)
+displayTotalPrice()
+displayTotalQuantity()
+deleteDataFromcCache(item)
+deleteArticlefromPage(item)
+}
+
+function deleteArticlefromPage(item) {
+    const articleToDelete = document.querySelector(
+        'article[data-id="${item.id}"][data-color="${item.color}"]'
+    )
+    articleToDelete.remove()
+
 }
 
 
