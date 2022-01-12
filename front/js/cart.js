@@ -16,6 +16,7 @@ function retrieveItemsFromCache () {
 }
 
 
+// Intégration des données dans la page Cart (panier)
 
 function displayItem(item) {
     const article = makeArticle(item)
@@ -24,18 +25,8 @@ function displayItem(item) {
     const cartItemContent = makeCartContent(item)
     article.appendChild(cartItemContent)
     displayArticle(article)
-    displayTotalPrice(item)
-}
-
-function displayTotalPrice(item) {
-    let total = 0
-    const totalPrice = document.querySelector("#totalPrice")
-    cart.forEach((item) => {
-        const totalUnitPrice = item.price * item.quantity
-        total += totalUnitPrice
-    })
-    totalPrice.textContent = total
-
+    displayTotalQuantity()
+    displayTotalPrice()
 }
 
 // Mis en place de l'article
@@ -63,6 +54,7 @@ function makeImageDiv(item) {
     imageDiv.appendChild(image)
     return imageDiv
 }
+
 
 // Mis en place de cartItemContent
 // création des élements de description (nom, couleur, prix)
@@ -95,21 +87,15 @@ function makeDescription(item) {
     return description
 }
 
+// Ajout de la case quantité des articles selon les articles commandés.
+// Ajout fonction/bouton "supprimer"
+
 function makeSettings(item){
     const settings = document.createElement("div")
     settings.classList.add("cart__item__settings")
     addQuantityToSettings(settings, item)
     addDeleteToSettings(settings)
     return settings
-}
-
-function addDeleteToSettings(settings) {
-    const div = document.createElement("div")
-    div.classList.add("cart__item__content__settings__delete")
-    const p = document.createElement("p")
-    p.textContent = "Supprimer"
-    div.appendChild(p)
-    settings.appendChild(div)
 }
 
 function addQuantityToSettings (settings, item){
@@ -127,4 +113,34 @@ function addQuantityToSettings (settings, item){
     input.value = item.quantity
     quantity.appendChild(input)
     settings.appendChild(quantity)
+}
+
+function addDeleteToSettings(settings) {
+    const div = document.createElement("div")
+    div.classList.add("cart__item__content__settings__delete")
+    const p = document.createElement("p")
+    p.textContent = "Supprimer"
+    div.appendChild(p)
+    settings.appendChild(div)
+}
+
+// Ajout du total des articles (quantité et prix).
+// total prix = (prix * quantité) pour chaque article commandé.
+
+function displayTotalPrice() {
+    let total = 0
+    const totalPrice = document.querySelector("#totalPrice")
+    cart.forEach((item) => {
+        const totalUnitPrice = item.price * item.quantity
+        total += totalUnitPrice
+    })
+    totalPrice.textContent = total
+}
+
+// Total quantité des articles commandés (addition de la quantité d'article)
+
+function displayTotalQuantity() {
+    const totalQuantity = document.querySelector("#totalQuantity")
+    const total = cart.reduce((total,item) => total + item.quantity, 0)
+    totalQuantity.textContent = total
 }
