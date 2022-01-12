@@ -43,7 +43,7 @@ function makeArticle(item) {
     article.dataset.color = item.color
     return article
 }
-// création de la imageDiv et de l'image à l'intérieur.
+// création de la div et de l'image à l'intérieur.
 
 function makeImageDiv(item) {
     const imageDiv = document.createElement('imageDiv')
@@ -111,9 +111,32 @@ function addQuantityToSettings (settings, item){
     input.min = "1"
     input.max = "100"
     input.value = item.quantity
+    input.addEventListener("input", () => updateTotalPriceAndQuantity(item.id, input.value, item))
     quantity.appendChild(input)
     settings.appendChild(quantity)
 }
+
+// Quand changement des quantités sur panier, récuperation de la nouvelle quantité.
+// Et, actualisation sur la page panier.
+
+function updateTotalPriceAndQuantity(id, newValue, item) {
+    const itemToUpdate = cart.find((item) => item.id === id )
+    itemToUpdate.quantity =  Number(newValue)
+    item.quantity = itemToUpdate.quantity
+    displayTotalPrice ()
+    displayTotalQuantity()
+    saveNewDatoToCache (item)
+}
+
+// Récuperation des nouvelles valeurs et remplacement, des anciennes, dans le localStorage.
+
+function saveNewDatoToCache(item) {
+    const dataToSave = JSON.stringify(item)
+    const key = '${item.id}-${item.color}'
+    localStorage.setItem(key, dataToSave)
+}
+
+// Ajout de "supprimer".
 
 function addDeleteToSettings(settings) {
     const div = document.createElement("div")
@@ -123,6 +146,7 @@ function addDeleteToSettings(settings) {
     div.appendChild(p)
     settings.appendChild(div)
 }
+
 
 // Ajout du total des articles (quantité et prix).
 // total prix = (prix * quantité) pour chaque article commandé.
@@ -144,3 +168,4 @@ function displayTotalQuantity() {
     const total = cart.reduce((total,item) => total + item.quantity, 0)
     totalQuantity.textContent = total
 }
+

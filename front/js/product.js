@@ -96,6 +96,7 @@ function handleClick() {
 }
 
 function saveOrder(color, quantity) {
+    const key ='${id}-${color}'
     const data = {
         id: id,
         color: color,
@@ -105,7 +106,7 @@ function saveOrder(color, quantity) {
         altTxt: altText,
         name: articleName
     }
-    localStorage.setItem(id, JSON.stringify(data))
+    localStorage.setItem(key, JSON.stringify(data))
 }
 
 // Message d'erreur si la couleur ou la quantité n'est pas mentionnée.
