@@ -2,9 +2,13 @@ const cart = []
 retrieveItemsFromCache ()
 cart.forEach((item) => displayItem(item))
 
+// Formulaire
+const orderButton = document.querySelector("#order")
+orderButton.addEventListener("click", (e) => submitForm(e))
+
 
 // Récupération de la clé ou des clefs (ajout des articles commandés précedemment)
-// Parsification de la string
+// Parsification de la string puis affichage sur la page
 
 function retrieveItemsFromCache () {
     const numberOfItems = localStorage.length
@@ -128,7 +132,7 @@ function updateTotalPriceAndQuantity(id, newValue, item) {
     saveNewDatoToCache(item)
 }
 
-// Récuperation des nouvelles valeurs et remplacement, des anciennes, dans le localStorage.
+// Récuperation des nouvelles valeurs et remplacement des anciennes, dans le localStorage.
 
 function saveNewDatoToCache(item) {
     const dataToSave = JSON.stringify(item)
@@ -156,6 +160,8 @@ displayTotalQuantity()
 deleteDataFromcCache(item)
 deleteArticlefromPage(item)
 }
+
+// Suppression de l'article
 
 function deleteArticlefromPage(item) {
     const articleToDelete = document.querySelector(
@@ -187,3 +193,96 @@ function displayTotalQuantity() {
     totalQuantity.textContent = total
 }
 
+
+
+// Formulaire
+// Fetch, methode post
+
+function submitForm(e) {
+    e.preventDefault()
+    if (cart.length === 0) {
+        alert("Please, select items to buy")
+        return
+    }
+    if (isFormInvalid()) return
+    if (isEmailInvalid()) return
+
+    const form = document.querySelector(".cart__order__form")
+    const body = makeRequestBody()
+    fetch ("http://localhost:3000/api/products/order", {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+            "content-type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+    }
+    )
+    .then((res => res.json()))
+    .then((data) => console.log(data))  
+}
+
+// Vérification des champs du formulaire, si ils sont valides.
+// si form est invalide (champ vide -non rempli -), retourne true.
+// si form est valide, retourne false.
+
+function isFormInvalid(){
+    const form = document.querySelector(".cart__order__form")
+    const inputs = form.querySelectorAll("input")
+    inputs.forEach((input) => {
+        if (input.value === "") {
+            alert("Please fill all the fields")
+            return true
+        }
+        return false
+    })
+}
+
+// Verification de la forme de l'email :
+// si Email est invalide , renvoie true.
+// si Email est valide (repondant aux formes d'email valide), renvoie false.
+
+function isEmailInvalid(){
+    const email = document.querySelector("#email").value
+    const regex = /^[A-Za-z0-9+_.-]+@(.+)$/
+    if (regex.test(email) === false) {
+        alert ("Please enter valid email")
+        return true
+    }
+    return false
+}
+
+function makeRequestBody() {
+    const form = document.querySelector(".cart__order__form")
+    const firstName = form.elements.firstName.value
+    const lastName= form.elements.lastName.value
+    const address = form.elements.address.value
+    const city = form.elements.city.value
+    const email = form.elements.email.value
+    const body = {
+        contact: {
+            firstName: firstName,
+            lastName: lastName,
+            address: address,
+            city: city,
+            email: email
+        },
+        products: getIdsfromCache()
+    }
+    return body
+}
+
+//
+
+function getIdsfromCache() {
+    const numberOfProducts = localstorage.length
+    const ids = []
+    for (let i = 0; i < numberOfProducts; i++) {
+        const key = localStorage.key(i)
+        const id = key.split("-")[0]
+        ids.push(id)
+    }
+    return ids
+}
+
+//console.log(form.elements)
