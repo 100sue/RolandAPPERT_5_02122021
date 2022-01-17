@@ -29,7 +29,7 @@ function displayItem(item) {
     const cartItemContent = makeCartContent(item)
     article.appendChild(cartItemContent)
     displayArticle(article)
-    displayTotalQuantity()
+    displayTotalQuantity(item)
     displayTotalPrice()
 }
 
@@ -125,7 +125,7 @@ function addQuantityToSettings (settings, item){
 
 function updateTotalPriceAndQuantity(id, newValue, item) {
     const itemToUpdate = cart.find((item) => item.id === id )
-    itemToUpdate.quantity =  Number(newValue)
+    itemToUpdate.quantity = Number(newValue)
     item.quantity = itemToUpdate.quantity
     displayTotalPrice()
     displayTotalQuantity()
@@ -136,7 +136,7 @@ function updateTotalPriceAndQuantity(id, newValue, item) {
 
 function saveNewDatoToCache(item) {
     const dataToSave = JSON.stringify(item)
-    const key = '${item.id}-${item.color}'
+    const key = item.id + item.color
     localStorage.setItem(key, dataToSave)
 }
 
@@ -157,17 +157,14 @@ function deleteItem(item) {
 cart.splice(itemToDelete, 1)
 displayTotalPrice()
 displayTotalQuantity()
-deleteDataFromcCache(item)
 deleteArticlefromPage(item)
 }
 
 // Suppression de l'article
 
 function deleteArticlefromPage(item) {
-    const articleToDelete = document.querySelector(
-        'article[data-id="${item.id}"][data-color="${item.color}"]'
-    )
-    articleToDelete.remove()
+    const articleToDelete = document.querySelector("#cart__item")
+    articleToDelete.remove(item)
 
 }
 
@@ -189,7 +186,7 @@ function displayTotalPrice() {
 
 function displayTotalQuantity() {
     const totalQuantity = document.querySelector("#totalQuantity")
-    const total = cart.reduce((total,item) => total + item.quantity, 0)
+    const total = cart.reduce((total, item) => total + item.quantity, 0)
     totalQuantity.textContent = total
 }
 
@@ -197,6 +194,7 @@ function displayTotalQuantity() {
 
 // Formulaire
 // Fetch, methode post
+// Recuperation  de orderId
 
 function submitForm(e) {
     e.preventDefault()
@@ -272,7 +270,7 @@ function makeRequestBody() {
     return body
 }
 
-//
+
 
 function getIdsfromCache() {
     const numberOfProducts = localstorage.length
