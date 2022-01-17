@@ -157,13 +157,22 @@ function deleteItem(item) {
 cart.splice(itemToDelete, 1)
 displayTotalPrice()
 displayTotalQuantity()
+deleteDatafromCache(item)
 deleteArticlefromPage(item)
 }
+
+// Suppression des informations dans le local Storage .
+
+function deleteDatafromCache(item) {
+    const key = item.id + item.color
+    localStorage.removeItem(key)
+}
+
 
 // Suppression de l'article
 
 function deleteArticlefromPage(item) {
-    const articleToDelete = document.querySelector("#cart__item")
+    const articleToDelete = document.querySelector("#article")
     articleToDelete.remove(item)
 
 }
@@ -217,7 +226,11 @@ function submitForm(e) {
     }
     )
     .then((res => res.json()))
-    .then((data) => console.log(data))  
+    .then((data) => {
+        const orderId = data.orderId
+        window.location.href = "/html/confirmation.html" + "?orderId" + orderId
+    })
+    .catch((err) => console.error(err))
 }
 
 // Vérification des champs du formulaire, si ils sont valides.
@@ -273,7 +286,7 @@ function makeRequestBody() {
 
 
 function getIdsfromCache() {
-    const numberOfProducts = localstorage.length
+    const numberOfProducts = localStorage.length
     const ids = []
     for (let i = 0; i < numberOfProducts; i++) {
         const key = localStorage.key(i)
