@@ -136,7 +136,7 @@ function updateTotalPriceAndQuantity(id, newValue, item) {
 
 function saveNewDataToCache(item) {
     const dataToSave = JSON.stringify(item)
-    const key ='${item.id}-${item.color}' 
+    const key = [item.id, item.color]
     localStorage.setItem(key, dataToSave)
 }
 
@@ -166,7 +166,7 @@ deleteArticlefromPage(item)
 // Suppression des informations dans le local Storage .
 
 function deleteDatafromCache(item) {
-    const key ='${item.id}-${item.color}'
+    const key = [item.id, item.color]
     localStorage.removeItem(key)
 }
 
@@ -174,12 +174,8 @@ function deleteDatafromCache(item) {
 // Suppression de l'article
 
 function deleteArticlefromPage(item) {
-    const articleToDelete = document.querySelector(
-        'article[data-id="${item.id}"][data-color="${item.color}"]'
-    )
-   
+    const articleToDelete = document.querySelector("article")
     articleToDelete.remove(item)
-
 }
 
 
@@ -207,10 +203,10 @@ function displayTotalQuantity() {
 
 
 // Formulaire :
-// prevent-default : evite le rechargement de la page qui vide les champs.
+// Prevent-default : evite le rechargement de la page qui vide les champs.
 // Vérification de la validité des champs (sinon il stop)
 // Fetch, methode post
-// Recuperation  de orderId
+// Récuperation de l'orderId
 
 function submitForm(e) {
     e.preventDefault()
@@ -296,7 +292,7 @@ function getIdsfromCache() {
     const ids = []
     for (let i = 0; i < numberOfProducts; i++) {
         const key = localStorage.key(i)
-        const id = key[0]
+        const id = key.split(",")[0]
         ids.push(id)
     }
     return ids

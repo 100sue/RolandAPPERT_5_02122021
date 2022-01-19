@@ -96,7 +96,7 @@ function handleClick() {
 }
 
 function saveOrder(color, quantity) {
-    const key = id + color
+    const key = [id, color]
     const data = {
         id: id,
         color: color,
