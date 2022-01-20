@@ -17,6 +17,8 @@ L'objectif principal consiste en la création, du front-end d'un site d'e-commer
 
 </br>
 
+![image-kanap](https://user-images.githubusercontent.com/90606431/150322976-c46776fa-6492-45ae-94e4-14eccd198d93.png)
+
 # Kanap #
 
 ### Cahier des charges : ###
@@ -59,6 +61,40 @@ Prérequis :
 
 - Node.js (version )
 - NPM (version )
+
+### Back-end : ###
+Le dossier back permet de faire tourner l'api contenant les données des produits.
+
+Installation : 
+Il suffit de se positionner dans le dossier backend avec un terminal et de saisir la commande npm install.
+Lancement du serveur : 
+Il suffit de se positionner dans le dossier backend avec un terminal et de saisir la commande node start.
+Par défaut le serveur sera lancé sur le port 3000 (http://localhost:3000).
+
+### Route API : ###
+
+Il y a trois routes disponibles sur le serveur :
+
+- GET /api/products/  : Permet de récupérer l'ensemble des produits disponibles.
+- 
+- GET /api/products/{id}  : {id} identifiant unique d'un produit Permet de récupérer un produit par son identifiant.
+- 
+- POST /api/products/order  : Envoie une commande pour l'enregistrer. 
+La commande envoyée doit être au format JSON suivant :
+
+{
+  contact{
+          firstName: <string>,
+          laststName: <string>,
+          address: <string>,
+          city: <string>,
+          email: <string>
+         },
+          products: [<string>]
+ }
+ 
+
+
 
  </br>
 This is the front end and back end server for Project 5 of the Web Developer path.
