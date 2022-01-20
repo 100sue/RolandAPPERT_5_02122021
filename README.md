@@ -17,6 +17,8 @@ L'objectif principal consiste en la création, du front-end d'un site d'e-commer
 
 </br>
 
+![image-kanap](https://user-images.githubusercontent.com/90606431/150322976-c46776fa-6492-45ae-94e4-14eccd198d93.png)
+
 # Kanap #
 
 ### Cahier des charges : ###
@@ -60,8 +62,42 @@ Prérequis :
 - Node.js (version )
 - NPM (version )
 
+### Back-end : ###
+Le dossier back permet de faire tourner l'api contenant les données des produits.
+
+Installation : 
+Il suffit de se positionner dans le dossier backend avec un terminal et de saisir la commande npm install.
+Lancement du serveur : 
+Il suffit de se positionner dans le dossier backend avec un terminal et de saisir la commande node start.
+Par défaut le serveur sera lancé sur le port 3000 (http://localhost:3000).
+
+### Route API : ###
+
+Il y a trois routes disponibles sur le serveur :
+
+- GET /api/products/  : Permet de récupérer l'ensemble des produits disponibles.
+
+- GET /api/products/{id}  : {id} identifiant unique d'un produit Permet de récupérer un produit par son identifiant.
+
+- POST /api/products/order  : Envoie une commande pour l'enregistrer. 
+La commande envoyée doit être au format JSON suivant :
+
+{
+  contact{
+          firstName: <string>,
+          laststName: <string>,
+          address: <string>,
+          city: <string>,
+          email: <string>
+         },
+          products: [<string>]
+ }
+ 
+
+
+
  </br>
-This is the front end and back end server for Project 5 of the Web Developer path.
+### This is the front end and back end server for Project 5 of the Web Developer path. ### 
 
 ### Back end Prerequisites ###
 
@@ -74,3 +110,20 @@ can then run the server with `node server`.
 The server should run on `localhost` with default port `3000`. If the
 server runs on another port for any reason, this is printed to the
 console when the server starts, e.g. `Listening on port 3001`.
+  
+  
+ ###  Challenges ### 
+  
+The web application will consist of 4 pages.
+
+  - A home page showing (dynamically) all the articles available at the sale.
+  - A “product” page which displays (dynamically) the details of the product on which the user clicked from the home page. From this page, the user can select a quantity, a     color, and add the product to his basket.
+  - A “shopping cart” page. This contains several parts:
+
+  - A summary of the products in the cart, the total price and the possibility of modify the quantity of a selected product or delete it.
+  - A form for placing an order. Data from form must be correct and well formatted before being returned to the back-end. For example, no number in a first name field.
+
+  - A “confirmation” page:
+
+  - An order confirmation message thanking the user for his order, and indicating the order ID sent by the API.
+
