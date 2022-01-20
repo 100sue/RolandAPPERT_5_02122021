@@ -216,6 +216,10 @@ function submitForm(e) {
         return
     }
     if (isFormInvalid()) return
+    if (isFirstNameInvalid()) return
+    if (isLastNameInvalid()) return
+    if (isAddressInvalid()) return
+    if (isCityInvalid()) return
     if (isEmailInvalid()) return
 
     const form = document.querySelector(".cart__order__form")
@@ -253,7 +257,55 @@ function isFormInvalid() {
     })
 }
 
-// Verification de la validité de l'email :
+// Vérification de la validité de la forme du prénom :
+
+function isFirstNameInvalid() {
+    const firstName = document.querySelector("#firstName")
+    const regex = /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,20}$/
+    if (regex.test(firstName) === false) {
+        alert ("Please enter valid firstName")
+        return true
+    }
+    return false
+}
+
+// Vérification de la validité de la forme du nom :
+
+function isLastNameInvalid() {
+    const lastName = document.querySelector("#lastName")
+    const regex = /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,20}$/
+    if (regex.test(lastName) === false) {
+        alert ("Please enter valid lastName")
+        return true
+    }
+    return false
+}
+  
+// Vérification de la validité de l'adresse :
+
+function isAddressInvalid() {
+    const address = document.querySelector("#address")
+    const regex = /\d{2}[ ]?\d{3}$/
+    if (regex.test(address) === false) {
+        alert ("Please enter valid address")
+        return true
+    }
+    return false
+}
+
+// Vérification de la validité de la ville :
+
+function isCityInvalid() {
+    const city = document.querySelector("#city")
+    const regex = /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,10}$/
+    if (regex.test(city) === false) {
+        alert ("Please enter valid city")
+        return true
+    }
+    return false
+}
+
+// Vérification de la validité de l'email :
 // si Email est invalide , renvoie true.
 // si Email est valide (repondant aux formes d'email valide), renvoie false.
 
