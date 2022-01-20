@@ -174,6 +174,7 @@ function addDeleteToSettings(settings, item) {
 }
 
 // Suppression de l'objet "article" du DOM et des "cookies" dans localStorage :
+// Et, actualisation de la page.
 
 function deleteItem(item) {
     const itemToDelete = cart.findIndex(
@@ -205,8 +206,8 @@ function deleteArticlefromPage(item) {
 // Prevent-default : évite le rechargement de la page qui vide les champs.
 // Vérification de la validité des champs (si les champs sont vides ou email non valide, il stoppe)
 // Récupération des données client.
-// Puis Fetch, methode post.
-// Récuperation de l'orderId
+// Puis posting sur l'API.
+// Et insertion de l'orderId dans l'url.
 
 function submitForm(e) {
     e.preventDefault()
@@ -230,7 +231,7 @@ function submitForm(e) {
     .then((res => res.json()))
     .then((data) => {
         const orderId = data.orderId
-        window.location.href = "../html/confirmation.html" + "?orderId" + orderId
+        window.location.href = "../html/confirmation.html?orderId=" + orderId
     })
     .catch((err) => console.error(err))
 }

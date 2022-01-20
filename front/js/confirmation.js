@@ -2,7 +2,7 @@ const orderId = getOrderId()
 displayOrderId(orderId)
 removeAllCache()
 
-// Récupération de l'orderId dans les Params.
+// Récupération de l'orderId dans les Params de l'url.
 
 function getOrderId() {
     const queryString = window.location.search
@@ -19,7 +19,8 @@ function displayOrderId(orderId) {
     
 }
 
-// Apres confirmation, suppression du cache (informations de la commande) dans local storage.
+// Apres confirmation et affichage du numéro de commande, 
+// suppression du cache (informations de la commande) dans local storage.
 
 function removeAllCache() {
     const cache = window.localStorage

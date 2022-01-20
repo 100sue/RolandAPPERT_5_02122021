@@ -83,7 +83,7 @@ function makeColors(colors) {
 }
 
 
-// Enregistrement des données (couleur, quantité) par rapport au clic.
+// Enregistrement des données (couleur, quantité) par rapport au clic si il y a un changement (ecoute de l'evenement).
 
 const button = document.querySelector("#addToCart")
 button.addEventListener("click", handleClick) 
