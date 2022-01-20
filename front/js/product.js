@@ -1,8 +1,4 @@
-// Mission : Afficher le produit cliqué (en page index), ainsi que ses infos.
-// Et sauvegarder le choix des inputs, de couleur et de prix, pour le panier(local storage)
-
-// Récupération de l'id produit dans l'url.
-// Et, vérification de l'url lié à l'identifiant.
+// Récuperation de l'id dans les Params.
 
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
@@ -12,13 +8,14 @@ if (id != null) {
     let imgUrl, altText, articleName
 }
 
-// Requête API sur ID produit.
+// Requête API sur ID produit, récupération des articles de l'API.
 
 fetch ("http://localhost:3000/api/products/"+id)
 .then((response) => response.json())
 .then((res) => handleData(res))
+.catch((err) => console.error(err))
 
-// Intégration des données de l'Api dans la page produit
+// Intégration des données de l'Api dans la page produit.
 
 function handleData(canap) {
     const altTxt = canap.altTxt
@@ -39,6 +36,8 @@ function handleData(canap) {
     makeColors(colors)
 }
 
+// Insertion de l'image :
+
 function makeImage(imageUrl, altTxt) {
     const image = document.createElement("img")
     image.src = imageUrl
@@ -47,15 +46,21 @@ function makeImage(imageUrl, altTxt) {
     if (parent != null) parent.appendChild(image)
 }
 
+// Insertion du titre :
+
 function makeTitle(name) {
     const h1 = document.querySelector("#title")
     if (h1 != null) h1.textContent = name
 }
 
+// Insertion du prix :
+
 function makePrice(price) {
     const span = document.querySelector("#price")
     if (span != null) span.textContent = price
 }
+
+// Insertion de la description :
 
 function makeDescription(description) {
     const p = document.querySelector("#description")
@@ -78,7 +83,6 @@ function makeColors(colors) {
 }
 
 
-
 // Enregistrement des données (couleur, quantité) par rapport au clic.
 
 const button = document.querySelector("#addToCart")
@@ -86,6 +90,7 @@ button.addEventListener("click", handleClick)
 
 // Récupération des options choisies pour la couleur et la quantité.
 // Et, enregistrement dans le local storage.
+// Puis, redirection vers la page Cart (panier).
 
 function handleClick() {
     const color = document.querySelector("#colors").value

@@ -132,53 +132,6 @@ function updateTotalPriceAndQuantity(id, newValue, item) {
     saveNewDataToCache(item)
 }
 
-// Récuperation des nouvelles valeurs et remplacement des anciennes, dans le localStorage.
-
-function saveNewDataToCache(item) {
-    const dataToSave = JSON.stringify(item)
-    const key = [item.id, item.color]
-    localStorage.setItem(key, dataToSave)
-}
-
-// Ajout de "supprimer".
-
-function addDeleteToSettings(settings, item) {
-    const div = document.createElement("div")
-    div.classList.add("cart__item__content__settings__delete")
-    div.addEventListener("click", () => deleteItem(item))
-    const p = document.createElement("p")
-    p.textContent = "Supprimer"
-    div.appendChild(p)
-    settings.appendChild(div)
-}
-
-function deleteItem(item) {
-    const itemToDelete = cart.findIndex(
-        (product) => product.id === item.id && product.color === item.color
-        )
-cart.splice(itemToDelete, 1)
-displayTotalPrice()
-displayTotalQuantity()
-deleteDatafromCache(item)
-deleteArticlefromPage(item)
-}
-
-// Suppression des informations dans le local Storage .
-
-function deleteDatafromCache(item) {
-    const key = [item.id, item.color]
-    localStorage.removeItem(key)
-}
-
-
-// Suppression de l'article
-
-function deleteArticlefromPage(item) {
-    const articleToDelete = document.querySelector("article")
-    articleToDelete.remove(item)
-}
-
-
 // Ajout du total des articles (quantité et prix).
 // total prix = (prix * quantité) pour chaque article commandé.
 
@@ -200,12 +153,59 @@ function displayTotalQuantity() {
     totalQuantity.textContent = total
 }
 
+// Récuperation des nouvelles valeurs et remplacement des anciennes, dans le localStorage.
+
+function saveNewDataToCache(item) {
+    const dataToSave = JSON.stringify(item)
+    const key = [item.id, item.color]
+    localStorage.setItem(key, dataToSave)
+}
+
+// Ajout de "supprimer".
+
+function addDeleteToSettings(settings, item) {
+    const div = document.createElement("div")
+    div.classList.add("cart__item__content__settings__delete")
+    div.addEventListener("click", () => deleteItem(item))
+    const p = document.createElement("p")
+    p.textContent = "Supprimer"
+    div.appendChild(p)
+    settings.appendChild(div)
+}
+
+// Suppression de l'objet "article" du DOM et des "cookies" dans localStorage :
+
+function deleteItem(item) {
+    const itemToDelete = cart.findIndex(
+        (product) => product.id === item.id && product.color === item.color
+        )
+cart.splice(itemToDelete, 1)
+displayTotalPrice()
+displayTotalQuantity()
+deleteDatafromCache(item)
+deleteArticlefromPage(item)
+}
+
+// Suppression des informations dans le local Storage .
+
+function deleteDatafromCache(item) {
+    const key = [item.id, item.color]
+    localStorage.removeItem(key)
+}
+
+// Suppression de l'article de la page panier.
+
+function deleteArticlefromPage(item) {
+    const articleToDelete = document.querySelector("article")
+    articleToDelete.remove(item)
+}
 
 
 // Formulaire :
-// Prevent-default : evite le rechargement de la page qui vide les champs.
-// Vérification de la validité des champs (sinon il stop)
-// Fetch, methode post
+// Prevent-default : évite le rechargement de la page qui vide les champs.
+// Vérification de la validité des champs (si les champs sont vides ou email non valide, il stoppe)
+// Récupération des données client.
+// Puis Fetch, methode post.
 // Récuperation de l'orderId
 
 function submitForm(e) {
@@ -235,11 +235,12 @@ function submitForm(e) {
     .catch((err) => console.error(err))
 }
 
-// Vérification des champs du formulaire, si ils sont valides.
+
+// Vérification de la validité des champs du formulaire :
 // si form est invalide (champ vide -non rempli -), retourne true.
 // si form est valide, retourne false.
 
-function isFormInvalid(){
+function isFormInvalid() {
     const form = document.querySelector(".cart__order__form")
     const inputs = form.querySelectorAll("input")
     inputs.forEach((input) => {
@@ -251,11 +252,11 @@ function isFormInvalid(){
     })
 }
 
-// Verification de la forme de l'email :
+// Verification de la validité de l'email :
 // si Email est invalide , renvoie true.
 // si Email est valide (repondant aux formes d'email valide), renvoie false.
 
-function isEmailInvalid(){
+function isEmailInvalid() {
     const email = document.querySelector("#email").value
     const regex = /^[A-Za-z0-9+_.-]+@(.+)$/
     if (regex.test(email) === false) {
@@ -264,6 +265,8 @@ function isEmailInvalid(){
     }
     return false
 }
+
+// Récuperation des coordonnées du formulaire client.
 
 function makeRequestBody() {
     const form = document.querySelector(".cart__order__form")
@@ -285,7 +288,8 @@ function makeRequestBody() {
     return body
 }
 
-
+// Récuperation des informations de la commande dans le localStorage.
+// Construction d'une Array.
 
 function getIdsfromCache() {
     const numberOfProducts = localStorage.length

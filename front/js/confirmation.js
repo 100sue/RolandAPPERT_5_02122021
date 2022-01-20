@@ -2,6 +2,7 @@ const orderId = getOrderId()
 displayOrderId(orderId)
 removeAllCache()
 
+// Récupération de l'orderId dans les Params.
 
 function getOrderId() {
     const queryString = window.location.search
@@ -10,7 +11,7 @@ function getOrderId() {
     return orderId
 }
 
-// Affichage du numéro de commande sur confirmation.
+// Affichage du numéro de commande (orderId) sur la page confirmation.
 
 function displayOrderId(orderId) {
     const orderIdElement = document.getElementById("orderId")
@@ -24,3 +25,6 @@ function removeAllCache() {
     const cache = window.localStorage
     cache.clear()
 }
+
+
+// console.log(orderId)

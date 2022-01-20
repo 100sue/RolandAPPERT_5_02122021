@@ -1,14 +1,11 @@
-// Mission : Afficher tous les produits, avec les infos suivantes :
-// Image + Nom + Description
-
-
-// Requête Get sur l'API.
+// Requête Get sur l'API, récuperation des articles.
 
 fetch ("http://localhost:3000/api/products")
 .then((reponse) => reponse.json())
 .then((data) => addProducts(data))
+.catch((err) => console.error(err))
 
-// Ajout des huit objets reçus sur la page HTML.
+// Ajout des huit objets reçus sur la page HTML, répartition des données de l'API dans le DOM.
 
 function addProducts(data) {
 
@@ -34,18 +31,24 @@ function addProducts(data) {
        
 }
 
+// Création de l'élement "anchor (a)":
+
 function makeAnchor(id) {
     const anchor = document.createElement("a")
     anchor.href = "./product.html?id=" + id
     return anchor 
 }
 
+// Insertion de "anchor" et "article" :
+
 function appendChildren(anchor, article) {
     const items = document.querySelector("#items")
     items.appendChild(anchor)
     anchor.appendChild(article)  
  }
- 
+
+ // Création de l'image :
+
  function makeImage(imageUrl, altTxt) {
      const image = document.createElement("img")
      image.src = imageUrl
@@ -53,12 +56,16 @@ function appendChildren(anchor, article) {
      return image
  }
 
+// Création du titre "h3" :
+
  function makeH3 (name) {
      const h3 = document.createElement("h3")
      h3.textcontent = name
      h3.classList.add("productName")
      return h3
  }
+
+// Création de la description "p" :
 
  function makeParagraph (description) {
      const p = document.createElement ("p")
