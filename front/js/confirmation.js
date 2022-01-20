@@ -11,7 +11,7 @@ function getOrderId() {
     return orderId
 }
 
-// Affichage du numéro de commande (orderId) sur la page confirmation.
+// Affichage du numéro de commande (orderId) sur la page de confirmation.
 
 function displayOrderId(orderId) {
     const orderIdElement = document.getElementById("orderId")
@@ -20,12 +20,10 @@ function displayOrderId(orderId) {
 }
 
 // Apres confirmation et affichage du numéro de commande, 
-// suppression du cache (informations de la commande) dans local storage.
+// suppression du "cache" (toutes les informations de la commande) dans local storage.
 
 function removeAllCache() {
     const cache = window.localStorage
     cache.clear()
 }
 
-
-// console.log(orderId)

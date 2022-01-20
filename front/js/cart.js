@@ -206,8 +206,8 @@ function deleteArticlefromPage(item) {
 // Prevent-default : évite le rechargement de la page qui vide les champs.
 // Vérification de la validité des champs (si les champs sont vides ou email non valide, il stoppe)
 // Récupération des données client.
-// Puis posting sur l'API.
-// Et insertion de l'orderId dans l'url.
+// Requête post sur l'API, récupération de l'identifiant de commande dans la réponse.
+// Redirection vers la page Confirmation et insertion de l'orderId dans l'url.
 
 function submitForm(e) {
     e.preventDefault()
@@ -320,6 +320,7 @@ function isEmailInvalid() {
 }
 
 // Récuperation des coordonnées du formulaire client.
+// Mise en place de la forme de la requête demandée par l'API.
 
 function makeRequestBody() {
     const form = document.querySelector(".cart__order__form")
