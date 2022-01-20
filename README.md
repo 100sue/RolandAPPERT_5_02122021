@@ -76,9 +76,9 @@ Par défaut le serveur sera lancé sur le port 3000 (http://localhost:3000).
 Il y a trois routes disponibles sur le serveur :
 
 - GET /api/products/  : Permet de récupérer l'ensemble des produits disponibles.
-- 
+
 - GET /api/products/{id}  : {id} identifiant unique d'un produit Permet de récupérer un produit par son identifiant.
-- 
+
 - POST /api/products/order  : Envoie une commande pour l'enregistrer. 
 La commande envoyée doit être au format JSON suivant :
 
