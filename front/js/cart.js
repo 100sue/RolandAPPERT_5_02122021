@@ -216,11 +216,7 @@ function submitForm(e) {
         return
     }
     if (isFormInvalid()) return
-    if (isFirstNameInvalid()) return
-    if (isLastNameInvalid()) return
-    if (isAddressInvalid()) return
-    if (isCityInvalid()) return
-    if (isEmailInvalid()) return
+    if (validControl())
 
     const form = document.querySelector(".cart__order__form")
     const body = makeRequestBody()
@@ -257,66 +253,83 @@ function isFormInvalid() {
     })
 }
 
+function validControl() {
+    if (controlFirstName() && controlLastName() && controlAddress() && controlCity() && controlEmail()) {
+        return true
+
+    } else {
+        alert("Verify the fields")
+    }
+
+}
+
 // Vérification de la validité de la forme du prénom :
 
-function isFirstNameInvalid() {
+function controlFirstName() {
     const firstName = document.querySelector("#firstName")
-    const regex = /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,20}$/
-    if (regex.test(firstName) === false) {
-        alert ("Please enter valid firstName")
+    if (/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,20}$/.test(firstName)) {
         return true
+
+    } else {
+        const firstNameErrorMsg = document.querySelector("#firstNameErrorMsg")
+        firstNameErrorMsg.textContent = ""
     }
-    return false
+    
 }
 
 // Vérification de la validité de la forme du nom :
 
-function isLastNameInvalid() {
+function controlLastName() {
     const lastName = document.querySelector("#lastName")
-    const regex = /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,20}$/
-    if (regex.test(lastName) === false) {
-        alert ("Please enter valid lastName")
+    if (/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,20}$/.test(lastName)) {
         return true
+
+    } else {
+        const lastNameErrorMsg = document.querySelector("#lastNameErrorMsg")
+        lastNameErrorMsg.textContent = ""
     }
-    return false
 }
   
 // Vérification de la validité de l'adresse :
 
-function isAddressInvalid() {
+function controlAddress() {
     const address = document.querySelector("#address")
-    const regex = /\d{2}[ ]?\d{3}$/
-    if (regex.test(address) === false) {
-        alert ("Please enter valid address")
+    if (/\d{2}[ ]?\d{3}$/.test(address)) {
         return true
+
+    } else {
+        const addressErrorMsg = document.querySelector("#addressErrorMsg")
+        addressErrorMsg.textContent = ""
     }
-    return false
 }
 
 // Vérification de la validité de la ville :
 
-function isCityInvalid() {
+function controlCity() {
     const city = document.querySelector("#city")
-    const regex = /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,10}$/
-    if (regex.test(city) === false) {
-        alert ("Please enter valid city")
+    if (/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,10}$/.test(city)) {
         return true
+
+    } else {
+        const cityErrorMsg = document.querySelector("#cityErrorMsg")
+        cityErrorMsg.textContent = ""
+
     }
-    return false
+    
 }
 
 // Vérification de la validité de l'email :
-// si Email est invalide , renvoie true.
-// si Email est valide (repondant aux formes d'email valide), renvoie false.
 
-function isEmailInvalid() {
+function controlEmail() {
     const email = document.querySelector("#email").value
-    const regex = /^[A-Za-z0-9+_.-]+@(.+)$/
-    if (regex.test(email) === false) {
-        alert ("Please enter valid email")
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         return true
+
+    } else {
+        const emailErrorMsg = document.querySelector("#emailErrorMsg")
+        emailErrorMsg.textContent = ""
     }
-    return false
+    
 }
 
 // Récuperation des coordonnées du formulaire client.
