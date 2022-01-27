@@ -2,7 +2,8 @@ const cart = []
 retrieveItemsFromCache ()
 cart.forEach((item) => displayItem(item))
 
-// Formulaire
+// Formulaire :
+
 const orderButton = document.querySelector("#order")
 orderButton.addEventListener("click", (e) => submitForm(e))
 
@@ -253,6 +254,8 @@ function isFormInvalid() {
     })
 }
 
+// Fonction rassemblant les vérifications de validité des champs du formulaire.
+
 function validControl() {
     if (controlFirstName() && controlLastName() && controlAddress() && controlCity() && controlEmail()) {
         return true
@@ -272,7 +275,7 @@ function controlFirstName() {
 
     } else {
         const firstNameErrorMsg = document.querySelector("#firstNameErrorMsg")
-        firstNameErrorMsg.textContent = ""
+        firstNameErrorMsg.textContent = "Please check the first name, 3 characters minimum"
     }
     
 }
@@ -286,7 +289,7 @@ function controlLastName() {
 
     } else {
         const lastNameErrorMsg = document.querySelector("#lastNameErrorMsg")
-        lastNameErrorMsg.textContent = ""
+        lastNameErrorMsg.textContent = "Please check the name, 3 characters minimum, with letters only"
     }
 }
   
@@ -299,7 +302,7 @@ function controlAddress() {
 
     } else {
         const addressErrorMsg = document.querySelector("#addressErrorMsg")
-        addressErrorMsg.textContent = ""
+        addressErrorMsg.textContent = "Please check the address, alphanumeric and without special characters"
     }
 }
 
@@ -312,7 +315,7 @@ function controlCity() {
 
     } else {
         const cityErrorMsg = document.querySelector("#cityErrorMsg")
-        cityErrorMsg.textContent = ""
+        cityErrorMsg.textContent = "Please check the city name, 3 characters minimum, with letters only"
 
     }
     
@@ -327,7 +330,7 @@ function controlEmail() {
 
     } else {
         const emailErrorMsg = document.querySelector("#emailErrorMsg")
-        emailErrorMsg.textContent = ""
+        emailErrorMsg.textContent = "Error ! Invalid Email"
     }
     
 }
