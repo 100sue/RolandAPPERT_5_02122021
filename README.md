@@ -14,10 +14,11 @@ L'objectif principal consiste en la création, du front-end d'un site d'e-commer
 - Utilisation uniquement du code de JavaScript pur. 
 - L'utilisation de tout framework ou librairie JavaScript - React, Angular, Vue ou jQuery, par exemple - est interdite pour ce projet.
 
-
 </br>
 
-![image-kanap](https://user-images.githubusercontent.com/90606431/150322976-c46776fa-6492-45ae-94e4-14eccd198d93.png)
+<p align="center">
+<img src= "https://user-images.githubusercontent.com/90606431/150322976-c46776fa-6492-45ae-94e4-14eccd198d93.png"/>
+</p>
 
 # Kanap #
 
@@ -127,3 +128,6 @@ The web application will consist of 4 pages.
 
   - An order confirmation message thanking the user for his order, and indicating the order ID sent by the API.
 
+  <p align="center">
+<img src= "https://user-images.githubusercontent.com/90606431/151660985-c0a30670-7d3b-4b86-89fe-566e96a15e79.jpg" />
+</p>
