@@ -131,7 +131,9 @@ The web application will consist of 4 pages.
   - A “confirmation” page:
 
   - An order confirmation message thanking the user for his order, and indicating the order ID sent by the API.
-
+  
+<br>
+  
   <p align="center">
 <img src= "https://user-images.githubusercontent.com/90606431/151660985-c0a30670-7d3b-4b86-89fe-566e96a15e79.jpg" />
 </p>
