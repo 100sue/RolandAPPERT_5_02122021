@@ -96,8 +96,12 @@ La commande envoyée doit être au format JSON suivant :
  
 
 
-
  </br>
+  
+<p align="center">
+<img src= "https://user-images.githubusercontent.com/90606431/150322976-c46776fa-6492-45ae-94e4-14eccd198d93.png"/>
+</p>
+  
 ### This is the front end and back end server for Project 5 of the Web Developer path. ### 
 
 ### Back end Prerequisites ###
