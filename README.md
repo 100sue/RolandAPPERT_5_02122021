@@ -1,3 +1,8 @@
+<p align="center">
+<img src= "https://user-images.githubusercontent.com/90606431/151769677-b99dbf89-68f6-46b6-9f01-ace009ae7202.jpg" />
+</p>
+
+
 ### Cinquième projet du parcours développeur web chez OpenClassrooms. ###
 
 L'objectif principal consiste en la création, du front-end d'un site d'e-commerce, en Javascript par l'utilisation d'un API préalablement fourni .
