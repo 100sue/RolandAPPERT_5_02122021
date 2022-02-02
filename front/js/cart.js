@@ -2,10 +2,7 @@ const cart = []
 retrieveItemsFromCache ()
 cart.forEach((item) => displayItem(item))
 
-// Formulaire :
 
-const orderButton = document.querySelector("#order")
-orderButton.addEventListener("click", (e) => submitForm(e))
 
 
 // Récupération de la clé ou des clefs (ajout des articles commandés précedemment)
@@ -184,8 +181,8 @@ function deleteItem(item) {
 cart.splice(itemToDelete, 1)
 displayTotalPrice()
 displayTotalQuantity()
-deleteDatafromCache(item)
 deleteArticlefromPage(item)
+deleteDatafromCache(item)
 }
 
 // Suppression des informations dans le local Storage .
@@ -203,165 +200,200 @@ function deleteArticlefromPage(item) {
 }
 
 
+
+
+
 // Formulaire :
-// Prevent-default : évite le rechargement de la page qui vide les champs.
-// Vérification de la validité des champs (si les champs sont vides ou email non valide, il stoppe)
-// Récupération des données client.
-// Requête post sur l'API, récupération de l'identifiant de commande dans la réponse.
-// Redirection vers la page Confirmation et insertion de l'orderId dans l'url.
+/*Les inputs des utilisateurs doivent être analysés et validés pour vérifier le format et le type de données avant l’envoi à l’API. 
+En cas de problème de saisie, un message d’erreur devra être affiché en dessous du champ*/
+// Recherche de toute les inputs type text et type email :
 
-function submitForm(e) {
-    e.preventDefault()
-    if (cart.length === 0) {
-        alert("Please, select items to buy")
-        return
-    }
-    if (isFormInvalid()) return
-    if (validControl())
-
-    const form = document.querySelector(".cart__order__form")
-    const body = makeRequestBody()
-    fetch ("http://localhost:3000/api/products/order", {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: {
-            "content-type": "application/json",
-        }
-    }
-    )
-    .then((res => res.json()))
-    .then((data) => {
-        const orderId = data.orderId
-        window.location.href = "../html/confirmation.html?orderId=" + orderId
-    })
-    .catch((err) => console.error(err))
-}
+const form = document.querySelector(".cart__order__form")
+const inputs = document.querySelectorAll(
+  'input[type ="text"], input[type ="email"], input [type ="submit"]'
+)
+let firstName, lastName, address, city, email
 
 
-// Vérification de la validité des champs du formulaire :
-// si form est invalide (champ vide -non rempli -), retourne true.
-// si form est valide, retourne false.
-
-function isFormInvalid() {
-    const form = document.querySelector(".cart__order__form")
-    const inputs = form.querySelectorAll("input")
-    inputs.forEach((input) => {
-        if (input.value === "") {
-            alert("Please fill all the fields")
-            return true
-        }
-        return false
-    })
-}
-
-// Fonction rassemblant les vérifications de validité des champs du formulaire.
-
-function validControl() {
-    if (controlFirstName() && controlLastName() && controlAddress() && controlCity() && controlEmail()) {
-        return true
-
-    } else {
-        alert("Verify the fields")
-    }
-
-}
-
+// Vérification de la validité des champs (si les champs sont vides ou ne respectent pas la regle, message d'erreur)
 // Vérification de la validité de la forme du prénom :
 
-function controlFirstName() {
-    const firstName = document.querySelector("#firstName")
-    if (/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,20}$/.test(firstName)) {
-        return true
+const firstNameChecker = (value) => {
+  const cartOrderForm = document.querySelector(".cart__order__form__question ")
+  const firstNameError = document.getElementById("firstNameErrorMsg")
 
-    } else {
-        const firstNameErrorMsg = document.querySelector("#firstNameErrorMsg")
-        firstNameErrorMsg.textContent = "Please check the first name, 3 characters minimum"
-    }
-    
+  if (value.length > 0 && (value.length < 3 || value.length > 20)) {
+    cartOrderForm.classList.add("cart__order")
+    firstNameError.textContent = "Le prenom doit faire entre 3 et 20 caracteres"
+    firstName = null
+
+  } else if (!value.match(/^[é è¨a-z ,.'-]+$/i)) {
+    cartOrderForm.classList.add(".cart__order")
+    firstNameError.textContent = "Le prenom  ne doit pas contenir de caractères spéciaux "
+    firstName = null
+
+  } else {
+    cartOrderForm.classList.remove("cart__order")
+    firstNameError.textContent = ""
+    firstName = value
+  }
 }
+
 
 // Vérification de la validité de la forme du nom :
 
-function controlLastName() {
-    const lastName = document.querySelector("#lastName")
-    if (/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,20}$/.test(lastName)) {
-        return true
+const lastNameChecker = (value) => {
+  const cartOrderFormName = document.querySelector(".cart__order__form__question ")
+  const lastNameError = document.getElementById("lastNameErrorMsg")
 
-    } else {
-        const lastNameErrorMsg = document.querySelector("#lastNameErrorMsg")
-        lastNameErrorMsg.textContent = "Please check the name, 3 characters minimum, with letters only"
-    }
+  if (value.length > 0 && (value.length < 3 || value.length > 20)) {
+    cartOrderFormName.classList.add("cart__order")
+    lastNameError.textContent = "Le nom doit faire entre 3 et 20 caracteres"
+    lastName = null
+
+  } else if (!value.match(/^[é è¨a-z ,.'-]+$/i)) {
+    cartOrderFormName.classList.add("cart__order")
+    lastNameError.textContent = "Le nom  ne doit pas contenir des caractères spéciaux "
+    lastName = null
+
+  } else {
+    cartOrderFormName.classList.remove("cart__order")
+    lastNameError.textContent = ""
+    lastName = value
+  }
 }
-  
+
 // Vérification de la validité de l'adresse :
 
-function controlAddress() {
-    const address = document.querySelector("#address")
-    if (/\d{2}[ ]?\d{3}$/.test(address)) {
-        return true
+const addressChecker = (value) => {
+  const cartOrderFormAdress = document.querySelector(".cart__order__form__question ")
+  const adressError = document.getElementById("addressErrorMsg")
 
-    } else {
-        const addressErrorMsg = document.querySelector("#addressErrorMsg")
-        addressErrorMsg.textContent = "Please check the address, alphanumeric and without special characters"
-    }
+  if (value.length > 0 && (value.length < 3 || value.length > 100)) {
+    cartOrderFormAdress.classList.add("cart__order")
+    adressError.textContent = "Veuillez remplir ce champ svp"
+    address = null
+
+  } else if (!value.match(/^[ 1234567890é è¨a-z ,.'-]+$/i)) {
+    cartOrderFormAdress.classList.add("cart__order")
+    adressError.textContent = "L'adresse ne doit pas contenir des caractères spéciaux "
+    address = null
+
+  } else {
+    cartOrderFormAdress.classList.remove("cart__order")
+    adressError.textContent = ""
+    address = value
+  }
 }
 
 // Vérification de la validité de la ville :
 
-function controlCity() {
-    const city = document.querySelector("#city")
-    if (/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,10}$/.test(city)) {
-        return true
+const cityChecker = (value) => {
+  const cartOrderFormCity = document.querySelector(".cart__order__form__question")
+  const cityError = document.getElementById("cityErrorMsg")
 
-    } else {
-        const cityErrorMsg = document.querySelector("#cityErrorMsg")
-        cityErrorMsg.textContent = "Please check the city name, 3 characters minimum, with letters only"
+  if (value.length > 0 && (value.length < 3 || value.length > 100)) {
+    cartOrderFormCity.classList.add("cart__order")
+    cityError.textContent = "Veuillez remplir ce champ svp"
+    city = null
 
-    }
-    
+  } else if (!value.match(/^[ 1234567890é è¨a-z ,.'-]+$/i)) {
+    cartOrderFormCity.classList.add("cart__order")
+    cityError.textContent = "La ville ne doit pas contenir des caractères spéciaux "
+    city = null
+
+  } else {
+    cartOrderFormCity.classList.remove("cart__order")
+    cityError.textContent = ""
+    city = value
+  }
 }
 
 // Vérification de la validité de l'email :
 
-function controlEmail() {
-    const email = document.querySelector("#email").value
-    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        return true
+const emailChecker = (value) => {
+  const cartOrderEmail = document.querySelector(".cart__order__form__question ")
+  const emailError = document.getElementById("emailErrorMsg")
+  if (
+    !value.match("^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$", "g")
+  ) {
+    emailError.textContent = "Le mail n'est pas valide"
+    email = null
 
-    } else {
-        const emailErrorMsg = document.querySelector("#emailErrorMsg")
-        emailErrorMsg.textContent = "Error ! Invalid Email"
-    }
-    
+  } else {
+    emailError.textContent = "Le mail est valide"
+    email = value
+  }
 }
 
-// Récuperation des coordonnées du formulaire client.
-// Mise en place de la forme de la requête demandée par l'API.
-
-function makeRequestBody() {
-    const form = document.querySelector(".cart__order__form")
-    const firstName = form.elements.firstName.value
-    const lastName= form.elements.lastName.value
-    const address = form.elements.address.value
-    const city = form.elements.city.value
-    const email = form.elements.email.value
-    const body = {
-        contact: {
-            firstName: firstName,
-            lastName: lastName,
-            address: address,
-            city: city,
-            email: email
-        },
-        products: getIdsfromCache()
+inputs.forEach((input) => {
+  input.addEventListener("input", (e) => {
+    switch (e.target.id) {
+      case "firstName":
+        firstNameChecker(e.target.value);
+        break
+      case "lastName":
+        lastNameChecker(e.target.value);
+        break
+      case "address":
+        addressChecker(e.target.value);
+        break
+      case "city":
+        cityChecker(e.target.value);
+        break
+      case "email":
+        emailChecker(e.target.value);
+        break
+      default:
+        null
     }
-    return body
-}
+  })
+})
 
-// Récuperation des informations de la commande dans le localStorage.
-// Construction d'une Array.
 
-function getIdsfromCache() {
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault()
+
+  if (firstName && lastName && address && city && email) {
+    const data = {
+      firstName,
+      lastName,
+      address,
+      city,
+      email,
+    }
+    console.log(data)
+
+    inputs.forEach((input) => (input.value = ""))
+
+    firstName = null
+    lastName = null
+    address = null
+    city = null
+    email = null
+
+    alert("formulaire validée !");
+  } else {
+    alert("veuillez remplir correctement les champs")
+  }
+})
+
+// "Ecoute" du panier.
+// Récupération des coordonnées du formulaire client.
+// Construction d'un array depuis le localStorage.
+// Requête post sur l'API, récupération de l'identifiant de commande dans la réponse.
+// Redirection vers la page Confirmation et insertion de l'orderId dans l'url.
+
+function postForm() {
+  const btn_commander = document.getElementById("order")
+  btn_commander.addEventListener("click", (event) => {
+    firstName = document.getElementById("firstName")
+    lastName = document.getElementById("lastName")
+    address = document.getElementById("address")
+    city = document.getElementById("city")
+    email = document.getElementById("email")
+
     const numberOfProducts = localStorage.length
     const ids = []
     for (let i = 0; i < numberOfProducts; i++) {
@@ -369,6 +401,40 @@ function getIdsfromCache() {
         const id = key.split(",")[0]
         ids.push(id)
     }
-    return ids
-}
+// Mise en place de la forme de la requête demandée par l'API.
 
+    const order = {
+      contact: {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        address: address.value,
+        city: city.value,
+        email: email.value,
+      },
+      products: ids,
+    }
+
+    const options = {
+      method: "POST",
+      body: JSON.stringify(order),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+
+    fetch("http://localhost:3000/api/products/order", options)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        localStorage.clear()
+        localStorage.setItem("orderId", data.orderId)
+
+        document.location.href = "confirmation.html"
+      })
+      .catch((err) => {
+        alert("Problème avec fetch : " + err.message)
+      })
+  })
+}
+postForm()
