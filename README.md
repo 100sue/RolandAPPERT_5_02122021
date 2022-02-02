@@ -1,3 +1,8 @@
+<p align="center">
+<img src= "https://user-images.githubusercontent.com/90606431/151769677-b99dbf89-68f6-46b6-9f01-ace009ae7202.jpg" />
+</p>
+
+
 ### Cinquième projet du parcours développeur web chez OpenClassrooms. ###
 
 L'objectif principal consiste en la création, du front-end d'un site d'e-commerce, en Javascript par l'utilisation d'un API préalablement fourni .
@@ -14,10 +19,11 @@ L'objectif principal consiste en la création, du front-end d'un site d'e-commer
 - Utilisation uniquement du code de JavaScript pur. 
 - L'utilisation de tout framework ou librairie JavaScript - React, Angular, Vue ou jQuery, par exemple - est interdite pour ce projet.
 
-
 </br>
 
-![image-kanap](https://user-images.githubusercontent.com/90606431/150322976-c46776fa-6492-45ae-94e4-14eccd198d93.png)
+<p align="center">
+<img src= "https://user-images.githubusercontent.com/90606431/150322976-c46776fa-6492-45ae-94e4-14eccd198d93.png"/>
+</p>
 
 # Kanap #
 
@@ -95,8 +101,12 @@ La commande envoyée doit être au format JSON suivant :
  
 
 
-
  </br>
+  
+<p align="center">
+<img src= "https://user-images.githubusercontent.com/90606431/150322976-c46776fa-6492-45ae-94e4-14eccd198d93.png"/>
+</p>
+  
 ### This is the front end and back end server for Project 5 of the Web Developer path. ### 
 
 ### Back end Prerequisites ###
@@ -126,4 +136,9 @@ The web application will consist of 4 pages.
   - A “confirmation” page:
 
   - An order confirmation message thanking the user for his order, and indicating the order ID sent by the API.
-
+  
+<br>
+  
+  <p align="center">
+<img src= "https://user-images.githubusercontent.com/90606431/151660985-c0a30670-7d3b-4b86-89fe-566e96a15e79.jpg" />
+</p>
