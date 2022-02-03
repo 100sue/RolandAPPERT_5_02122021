@@ -4,7 +4,7 @@ removeAllCache()
 function displayOrderId(){
     const orderIdElement = document.getElementById("orderId")
     orderIdElement.innerText = localStorage.getItem("orderId")
-    console.log(localStorage.getItem("orderId"));
+    console.log(localStorage.getItem("orderId"))
 }
 
 function removeAllCache() {

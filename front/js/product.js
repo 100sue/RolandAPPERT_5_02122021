@@ -118,7 +118,7 @@ function saveOrder(color, quantity) {
 
 function isOrderInvalid(color, quantity) {
     if (color == null || color === "" || quantity == null || quantity == 0) {
-        alert("Please select color and quantity")
+        alert("Merci, de choisir une couleur et une quantité")
         return true
     }
 }

@@ -204,9 +204,9 @@ function deleteArticlefromPage(item) {
 
 
 // Formulaire :
-/*Les inputs des utilisateurs doivent être analysés et validés pour vérifier le format et le type de données avant l’envoi à l’API. 
-En cas de problème de saisie, un message d’erreur devra être affiché en dessous du champ*/
-// Recherche de toute les inputs type text et type email :
+// Les inputs des utilisateurs doivent être analysés et validés pour vérifier le format et le type de données avant l’envoi à l’API. 
+// En cas de problème de saisie, un message d’erreur devra être affiché en dessous du champ.
+// Recherche de tous les inputs type text et type email :
 
 const form = document.querySelector(".cart__order__form")
 const inputs = document.querySelectorAll(
@@ -224,12 +224,12 @@ const firstNameChecker = (value) => {
 
   if (value.length > 0 && (value.length < 3 || value.length > 20)) {
     cartOrderForm.classList.add("cart__order")
-    firstNameError.textContent = "Le prenom doit faire entre 3 et 20 caracteres"
+    firstNameError.textContent = "Le prénom doit faire entre 3 et 20 caractères"
     firstName = null
 
   } else if (!value.match(/^[é è¨a-z ,.'-]+$/i)) {
     cartOrderForm.classList.add(".cart__order")
-    firstNameError.textContent = "Le prenom  ne doit pas contenir de caractères spéciaux "
+    firstNameError.textContent = "Le prénom ne doit pas contenir de caractères spéciaux "
     firstName = null
 
   } else {
@@ -248,7 +248,7 @@ const lastNameChecker = (value) => {
 
   if (value.length > 0 && (value.length < 3 || value.length > 20)) {
     cartOrderFormName.classList.add("cart__order")
-    lastNameError.textContent = "Le nom doit faire entre 3 et 20 caracteres"
+    lastNameError.textContent = "Le nom doit faire entre 3 et 20 caractères"
     lastName = null
 
   } else if (!value.match(/^[é è¨a-z ,.'-]+$/i)) {
@@ -271,12 +271,12 @@ const addressChecker = (value) => {
 
   if (value.length > 0 && (value.length < 3 || value.length > 100)) {
     cartOrderFormAdress.classList.add("cart__order")
-    adressError.textContent = "Veuillez remplir ce champ svp"
+    adressError.textContent = "Veuillez remplir ce champ, svp"
     address = null
 
   } else if (!value.match(/^[ 1234567890é è¨a-z ,.'-]+$/i)) {
     cartOrderFormAdress.classList.add("cart__order")
-    adressError.textContent = "L'adresse ne doit pas contenir des caractères spéciaux "
+    adressError.textContent = "L'adresse ne doit pas contenir de caractères spéciaux "
     address = null
 
   } else {
@@ -299,7 +299,7 @@ const cityChecker = (value) => {
 
   } else if (!value.match(/^[ 1234567890é è¨a-z ,.'-]+$/i)) {
     cartOrderFormCity.classList.add("cart__order")
-    cityError.textContent = "La ville ne doit pas contenir des caractères spéciaux "
+    cityError.textContent = "La ville ne doit pas contenir de caractères spéciaux "
     city = null
 
   } else {
@@ -429,7 +429,6 @@ function postForm() {
         console.log(data)
         localStorage.clear()
         localStorage.setItem("orderId", data.orderId)
-
         document.location.href = "confirmation.html"
       })
       .catch((err) => {
