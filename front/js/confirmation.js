@@ -1,11 +1,25 @@
-displayOrderId()
+
+const orderId = getOrderId()
+displayOrderId(orderId)
 removeAllCache()
 
-function displayOrderId(){
-    const orderIdElement = document.getElementById("orderId")
-    orderIdElement.innerText = localStorage.getItem("orderId")
-    console.log(localStorage.getItem("orderId"))
+// Récupération de l'orderId dans les Params de l'url :
+
+function getOrderId() {
+    const queryString = window.location.search
+    const urlParams = new URLSearchParams(queryString)
+    const orderId = urlParams.get("orderId")
+    return orderId
 }
+
+// Affichage du numéro de commande (orderId) sur la page de confirmation :
+
+function displayOrderId(orderId) {
+    const orderIdElement = document.getElementById("orderId")
+    orderIdElement.textContent = orderId  
+}
+
+// suppression du "cache" (toutes les informations de la commande) dans local storage :
 
 function removeAllCache() {
     const cache = window.localStorage

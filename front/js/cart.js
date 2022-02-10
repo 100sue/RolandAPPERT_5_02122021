@@ -198,164 +198,154 @@ function deleteArticlefromPage(item) {
 
 
 // Formulaire :
-// Ajout des Regex
+// submitBtn cible le bouton commander :
 
-let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$')
-let NameRegExp = new RegExp("^[a-zA-Z ,.'-]+$")
-let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+")
+const submitBtn = document.querySelector("#order")
+
+// Ajout des Regex :
+
+const emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/
+const addressRegex = /^[A-Za-z0-9\s]{5,50}$/
+const cityRegex = /^[A-Za-z\s]{5,50}$/
 
 
-// "Ecoute" de la modification du prénom, nom, de l'adresse, de la ville, et de l'email.
-// Puis, Vérification de la validité du prénom, du nom, de l'adresse, de la ville, et de l'email.
-// Ou message d'erreur.
+// submitForm envoie le formulaire.
+// e.preventDefault() permet d'éviter le comportement par defaut.
+// Initialisation variable check à true, afin  de vérifier si l'utilisation à bien rempli le formulaire.
+
+// La fonction checkInput permet de verifier les regex, et dans le cas ou l'input ne serait pas correct on affiche un message d'erreur.
+// Avec checkInput on cible tous les éléments dont on aura besoin puis on applique les regex via .match et des conditions if / else.
+
+// Puis la Fonction postApi va permetre de vérifier si check === true alors on enverra le formulaire.
+// On Fetch l'api avec la méthode POST qui permet d'envoyer les données au serveur.
+// Cela nous envoie sur la page confirmation. Attention, si les inputs ne sont pas remplis correctement (voir variable check), cela ne nous enverra pas sur la page confirmation.
+// La fonction requestBody récupère les valeurs entrées dans les inputs. Boucle à l'interieur et donne à la variable idProducts, les id du produit.
+// On créer aussi l'objet contact dans lequel on entre les données des inputs, et enfin un products avec l'id des produits récupérer dans la boucle.
+
+function submitForm (e){
+  e.preventDefault()
+  let check = true
+
+  function checkInput (){
+  const prenom = document.getElementById('firstName')
+  const prenomErreur = document.getElementById('firstNameErrorMsg')
+  const nom = document.getElementById('lastName')
+  const nomErreur = document.getElementById('lastNameErrorMsg')
+  const adresse = document.getElementById('address')
+  const adresseErreur = document.getElementById('addressErrorMsg')
+  const ville = document.getElementById('city')
+  const villeErreur = document.getElementById('cityErrorMsg')
+  const mail = document.getElementById('email')
+  const mailErreur = document.getElementById('emailErrorMsg')
+  const msgErreur = document.querySelectorAll('.cart__order__form__question >  p')
+  const prenomValue = prenom.value.trim()
+  const nomValue = nom.value.trim()
+  const adresseValue = adresse.value.trim()
+  const villeValue = ville.value.trim()
+  const mailValue = mail.value.trim()
   
-function getForm() {
-  let form = document.querySelector(".cart__order__form")
-
-  form.firstName.addEventListener('change', function(){
-      validFirstName(this)
-  })
-
-  form.lastName.addEventListener('change', function() {
-      validLastName(this)
-  })
-
-  form.address.addEventListener('change', function() {
-      validAddress(this)
-  })
-
-  form.city.addEventListener('change', function() {
-      validCity(this)
-  })
-
-  form.email.addEventListener('change', function() {
-      validEmail(this)
-  })
-
-
-  const validFirstName = function(inputFirstName) {
-      let firstNameErrorMsg = inputFirstName.nextElementSibling
-      if (NameRegExp.test(inputFirstName.value)) {
-          firstNameErrorMsg.innerHTML = ''
-      } else {
-          firstNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ.'
-      }
-  }
-
-  const validLastName = function(inputLastName) {
-      let lastNameErrorMsg = inputLastName.nextElementSibling
-      if (NameRegExp.test(inputLastName.value)) {
-          lastNameErrorMsg.innerHTML = ''
-      } else {
-          lastNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ.'
-      }
-  }
-
-  const validAddress = function(inputAddress) {
-      let addressErrorMsg = inputAddress.nextElementSibling
-      if (addressRegExp.test(inputAddress.value)) {
-          addressErrorMsg.innerHTML = ''
-      } else {
-          addressErrorMsg.innerHTML = 'Veuillez renseigner ce champ.'
-      }
-  }
-
-  const validCity = function(inputCity) {
-      let cityErrorMsg = inputCity.nextElementSibling
-      if (NameRegExp.test(inputCity.value)) {
-          cityErrorMsg.innerHTML = ''
-      } else {
-          cityErrorMsg.innerHTML = 'Veuillez renseigner ce champ.'
-      }
-  }
-
-  const validEmail = function(inputEmail) {
-      let emailErrorMsg = inputEmail.nextElementSibling
-      const buttonCommande = document.getElementById("order")
-      if (emailRegExp.test(inputEmail.value)) {
-          emailErrorMsg.innerHTML = ''
-      } else {
-          emailErrorMsg.innerHTML = 'Veuillez renseigner votre email.'
-      }
-  }
-  }
-
-  getForm()
-
-// "Ecoute" du panier.
-// Récupération des coordonnées du formulaire client.
-// Construction d'un array depuis le localStorage.
-// Requête post sur l'API, récupération de l'identifiant de commande dans la réponse.
-// Redirection vers la page Confirmation
-
-function postForm(){
-      const buttonCommande = document.getElementById("order")
-      let inputName = document.getElementById('firstName')
-      let inputLastName = document.getElementById('lastName')
-      let inputAdress = document.getElementById('address')
-      let inputCity = document.getElementById('city')
-      let inputEmail = document.getElementById('email')
-      buttonCommande.addEventListener('click', function(e){
-      e.preventDefault()
-      if (cart.length === 0) {
-        alert("Veuillez choisir un produit")
-        return
+    if(mailValue.match(emailRegex)){
+      mailErreur.innerText = ""
+    }else{
+      check = false
+      mailErreur.innerText = "Veuillez entrer une  adresse mail valide."
     }
-      if (NameRegExp.test(inputName.value) && NameRegExp.test(inputLastName.value) && addressRegExp.test(inputAdress.value) &&
-          NameRegExp.test(inputCity.value) &&  emailRegExp.test(inputEmail.value)){ 
+    if(adresseValue.match(addressRegex)){
+      adresseErreur.innerText=""
+    }else{
+      check = false
+      adresseErreur.innerText="Veuillez entrer une adresse valide."
+    }
+    if(villeValue.match(cityRegex)){
+      villeErreur.innerText = ""
+    }else{
+      check = false
+      villeErreur.innerText = "Veuillez entrer un nom de ville correct."
+    }
+    if(prenomValue.length < 3 || prenomValue.length > 15){
+      check = false
+      prenomErreur.innerText = "Le prénom doit contenir entre 3 et 15 caractères"
+    }else if (prenomValue.length >= 3){
+      prenomErreur.innerText = ""
+    }
+    if(nomValue.length < 3 || nomValue.length > 35){
+      check = false
+      nomErreur.innerText = "Le nom doit contenir entre 3 et 15 caractères"
+    }else if(nomValue.length >= 3){
+      nomErreur.innerText = ""
+    }
+    
+  }
+  
+  checkInput()
 
-              const numberOfProducts = localStorage.length
-                  const ids = []
-                  for (let i = 0; i < numberOfProducts; i++) {
-                      const key = localStorage.key(i)
-                      const id = key.split(",")[0]
-                      ids.push(id)
-                  }
+  function postApi(){
+    if(check === true){
 
-              const order = {
-                  contact : {
-                      firstName: inputName.value,
-                      lastName: inputLastName.value,
-                      address: inputAdress.value,
-                      city: inputCity.value,
-                      email: inputMail.value,
-                  },
-                  products: ids,
-              } 
-
-              console.log(order)
-              console.log(NameRegExp.test(inputName.value))
-
-              const options = {
-                  method : 'POST',
-                  body : JSON.stringify(order),
-                  headers :{
-                      'Accept' : 'application/json',
-                      'Content-Type' : 'application/json'
-                  },
-                  
-              }
-
-              fetch("http://localhost:3000/api/products/order", options)
-              .then(function(res){
-                  if(res.ok){
-                      return res.json()
-                  }
-              })
-              .then(function(data){
-                  console.log(data)
-                  localStorage.clear()
-                  localStorage.setItem("orderId", data.orderId)
-                  document.location.href = "confirmation.html"
-              })
-              .catch((e)=>{
-                alert("Problème avec fetch : " + err.message)
-              })
-          }
+      if(cart.length === 0){
+        alert ("Veuillez choisir un produit")
+        return
+      }
+      alert("formulaire validée !")
+     
+      const body = requestBody()
+   
+      fetch("http://localhost:3000/api/products/order", {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type" : "application/json",
+        }
       })
+    
+      .then((res) => res.json())
+    
+      .then((data) => {
+        const orderId = data.orderId
+        window.location.href = "../html/confirmation.html?orderId=" + orderId
+        return console.log(data)
+      })
+    
+      .catch((err) => alert ("Erreur d'envoi du formulaire. Veuillez réessayer plus tard."))
+    }
+  }
+  
+  postApi()
 
+ 
+  function requestBody(){
+    const firstNameInput = document.querySelector('#firstName')
+    const firstName = firstNameInput.value
+    const lastNameInput = document.querySelector('#lastName')
+    const lastName = lastNameInput.value
+    const addressInput = document.querySelector('#address')
+    const address = addressInput.value
+    const cityInput = document.querySelector('#city')
+    const city = cityInput.value
+    const emailInput = document.querySelector('#email')
+    const email = emailInput.value
+    const numberOfProducts = localStorage.length
+    const ids = []
+    for (let i = 0; i < numberOfProducts; i++) {
+        const key = localStorage.key(i)
+        const id = key.split(",")[0]
+        ids.push(id)
+  
+    }
+    const body = { 
+      contact: {
+      firstName: firstName,
+      lastName: lastName,
+      address: address,
+      city: city,
+      email: email
+    },
+    products : ids,
+    }
+    return body
+  }
 }
 
-postForm()
+// Appel de la fonction.
 
-
+submitBtn.addEventListener("click", (e) => submitForm(e))
