@@ -5,7 +5,7 @@
 
 ### Cinquième projet du parcours développeur web chez OpenClassrooms. ###
 
-L'objectif principal consiste en la création, du front-end d'un site d'e-commerce, en Javascript par l'utilisation d'un API préalablement fourni .
+L'objectif principal consiste en la création, du front-end d'un site d'e-commerce, en Javascript par l'utilisation d'une API préalablement fournie .
 
 
 ### Compétences évaluées : ###
