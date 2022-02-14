@@ -198,6 +198,7 @@ function deleteArticlefromPage(item) {
 
 
 // Formulaire :
+
 // submitBtn cible le bouton commander :
 
 const submitBtn = document.querySelector("#order")
@@ -207,6 +208,7 @@ const submitBtn = document.querySelector("#order")
 const emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/
 const addressRegex = /^[A-Za-z0-9\s]{5,50}$/
 const cityRegex = /^[A-Za-z\s]{5,50}$/
+const nomRegex = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/
 
 
 // submitForm envoie le formulaire.
@@ -237,12 +239,12 @@ function submitForm (e){
   const villeErreur = document.getElementById('cityErrorMsg')
   const mail = document.getElementById('email')
   const mailErreur = document.getElementById('emailErrorMsg')
-  const msgErreur = document.querySelectorAll('.cart__order__form__question >  p')
-  const prenomValue = prenom.value.trim()
-  const nomValue = nom.value.trim()
-  const adresseValue = adresse.value.trim()
-  const villeValue = ville.value.trim()
-  const mailValue = mail.value.trim()
+
+  const prenomValue = prenom.value
+  const nomValue = nom.value
+  const adresseValue = adresse.value
+  const villeValue = ville.value
+  const mailValue = mail.value
   
     if(mailValue.match(emailRegex)){
       mailErreur.innerText = ""
@@ -262,21 +264,22 @@ function submitForm (e){
       check = false
       villeErreur.innerText = "Veuillez entrer un nom de ville correct."
     }
-    if(prenomValue.length < 3 || prenomValue.length > 15){
-      check = false
-      prenomErreur.innerText = "Le prénom doit contenir entre 3 et 15 caractères"
-    }else if (prenomValue.length >= 3){
+    if(prenomValue.match(nomRegex)){
       prenomErreur.innerText = ""
-    }
-    if(nomValue.length < 3 || nomValue.length > 35){
+    }else {
       check = false
-      nomErreur.innerText = "Le nom doit contenir entre 3 et 15 caractères"
-    }else if(nomValue.length >= 3){
-      nomErreur.innerText = ""
-    }
+      prenomErreur.innerText = "Veuillez entrer des données valides"
     
+    }
+    if(nomValue.match(nomRegex)){
+      nomErreur.innerText = ""
+     
+    }else {
+      check = false
+      nomErreur.innerText = "Veuillez entrer des données valides"
+      
+    } 
   }
-  
   checkInput()
 
   function postApi(){
@@ -286,7 +289,7 @@ function submitForm (e){
         alert ("Veuillez choisir un produit")
         return
       }
-      alert("formulaire validée !")
+      alert("Votre formulaire a été validé !")
      
       const body = requestBody()
    
